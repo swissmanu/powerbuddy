@@ -1,0 +1,32 @@
+{
+  "name": "powerbuddy",
+  "version": "1.0.0",
+  "description": "Automatic shutdown and boot for linux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swissmanu/powerbuddy"
+  },
+  "keywords": [
+    "linux",
+    "rtc",
+    "wakealarm",
+    "shutdown",
+    "boot",
+    "start",
+    "restart",
+    "schedule",
+    "plan"
+  ],
+  "author": "Manuel Alabor <manuel@alabor.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swissmanu/powerbuddy/issues"
+  },
+  "dependencies": {
+    "crontab": "~0.3.4"
+  }
+}
