@@ -41,23 +41,12 @@ program
 	.on('--help', function() {
 		console.log('  Examples:');
 		console.log('');
-		console.log('    $ powerbuddy plan monday 10:00 22:00');
-		console.log('    $ powerbuddy plan friday,monday 10:00 22:00');
+		console.log('    $ powerbuddy plan monday 10am 22pm');
+		console.log('    $ powerbuddy plan friday,monday 10am 22pm');
+		console.log('    $ powerbuddy plan everyday 10am 22pm');
+		console.log('    $ powerbuddy plan weekend 10am 22pm');
+		console.log('    $ powerbuddy plan weekday,sunday 10am 22pm');
 		console.log('');
 	});
-
-/*
-		console.log('    $ powerbuddy start weekend 10:00');
-		console.log('    $ powerbuddy shutdown weekday 00:00');
-		*/
-
-	/*
-	.option('plan <days> <start> <shutdown>', 'plan a start/shutdown pair for several days', list)
-	.option('start <day> <time>', 'plan start')
-	.option('start <days> <time>', 'plan start for several days', list)
-	.option('shutdown <day> <time>', 'plan shutdown')
-	.option('shutdown <days> <time>', 'plan shutdown for several days', list)
-	.option('delete <id>', 'delete scheduled start/shutdown by id (retreive with `list`)')
-	*/
 
 program.parse(process.argv);
