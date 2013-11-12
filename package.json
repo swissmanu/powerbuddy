@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "crontab": "~0.3.4",
-    "commander": "~2.0.0"
+    "commander": "~2.0.0",
+    "time-js": "0.0.4"
   }
 }
