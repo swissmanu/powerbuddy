@@ -7,8 +7,8 @@ powerbuddy.planShutdown(['sunday', 'monday'], '10am');
 powerbuddy.plan('monday', '10am', '10pm');
 */
 
-var parser = require('../lib/parser');
-console.log(parser.parseTime('11am'));
+//var parser = require('../lib/parser');
+//console.log(parser.parseTime('11am'));
 
 //var time = require('time-js');
 //console.log(time('2pm').period());
