@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 		mochaTest: {
 			options: {
 				reporter: 'spec'
-				, require: 'test/lib'
+				, require: 'test/expect'
 			}
 			, all: {
 				src: 'test/spec/**/*.js'
