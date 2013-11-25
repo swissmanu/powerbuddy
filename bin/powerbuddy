@@ -22,8 +22,8 @@ program
 
 
 program
-	.command('plan <day>')
-	.description('plan a start/shutdown pair')
+	.command('schedule <day>')
+	.description('schedule a start/shutdown pair')
 	.option('-s, --start <time>', 'start')
 	.option('-d, --shutdown <time>', 'shutdown')
 	.action(function(day, options) {
@@ -41,11 +41,11 @@ program
 	.on('--help', function() {
 		console.log('  Examples:');
 		console.log('');
-		console.log('    $ powerbuddy plan monday 10am 22pm');
-		console.log('    $ powerbuddy plan friday,monday 10am 22pm');
-		console.log('    $ powerbuddy plan everyday 10am 22pm');
-		console.log('    $ powerbuddy plan weekend 10am 22pm');
-		console.log('    $ powerbuddy plan weekday,sunday 10am 22pm');
+		console.log('    $ powerbuddy schedule monday -s 10am -d 22pm');
+		console.log('    $ powerbuddy schedule friday,monday -s 10am -d 22pm');
+		console.log('    $ powerbuddy schedule everyday -s 10am -d 22pm');
+		console.log('    $ powerbuddy schedule weekend -s 10am -d 22pm');
+		console.log('    $ powerbuddy schedule weekday,sunday -s 10am -d 22pm');
 		console.log('');
 	});
 

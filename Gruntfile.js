@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-mocha-test');
 
 	grunt.initConfig({
@@ -12,7 +13,14 @@ module.exports = function(grunt) {
 				src: 'test/spec/**/*.js'
 			}
 		}
+
+		, watch: {
+			files: ['lib/**/*.js', 'bin/*', 'test/**/*.js']
+			, tasks: ['test']
+		}
 	});
 
 	grunt.registerTask('test', ['mochaTest:all']);
+	grunt.registerTask('test:watch', ['mochaTest:all', 'watch']);
+	grunt.registerTask('default', 'test:watch');
 };
