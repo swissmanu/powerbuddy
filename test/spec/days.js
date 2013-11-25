@@ -1,5 +1,5 @@
 /* global describe, it, expect */
-describe('Day Definitions', function() {
+describe('Days', function() {
 	var days = require('../../lib/days');
 
 	it('should define sunday with value 0', function() {
