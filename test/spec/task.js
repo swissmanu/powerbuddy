@@ -1,12 +1,12 @@
 /* global describe, it, expect */
 describe('Task', function() {
 	var Task = require('../../lib/task')
-		, daydefinition = require('../../lib/daydefinition');
+		, days = require('../../lib/days');
 
 	it('should take an array of day indices with its constructor options argument', function() {
-		var days = daydefinition.weekdays
-			, testTask = new Task({ days: days });
-		expect(testTask.days).to.be.equal(days);
+		var weekdays = days.weekdays
+			, testTask = new Task({ days: weekdays });
+		expect(testTask.days).to.be.equal(weekdays);
 	});
 
 });
