@@ -11,30 +11,25 @@ describe('Task', function() {
 		expect(testTask.days).to.be.eql(weekdays);
 	});
 
-	it('should take a start time with its constructor options argument', function() {
-		var startTime = new Time()
-			, testTask = new Task({ startTime: startTime });
+	it('should take a time and type with its constructor options argument', function() {
+		var time = new Time()
+			, action = Task.SHUTDOWN
+			, testTask = new Task({ time: time, action: action });
 
-		expect(testTask.startTime).to.be.eql(startTime);
-	});
-
-	it('should take a shutdown time with its constructor options argument', function() {
-		var shutdownTime = new Time()
-			, testTask = new Task({ shutdownTime: shutdownTime });
-
-		expect(testTask.shutdownTime).to.be.eql(shutdownTime);
+		expect(testTask.time.toString()).to.be.equal(time.toString());
+		expect(testTask.action).to.be.equal(action);
 	});
 
 	describe('toJSON', function() {
 		it('should return the tasks information in a simplified object, ready to be stringified', function() {
 			var weekdays = days.weekdays
-				, startTime = new Time()
-				, shutdownTime = new Time()
-				, testTask = fakeFactory.createTask(weekdays, startTime, shutdownTime)
+				, time = new Time()
+				, action = Task.SHUTDOWN
+				, testTask = fakeFactory.createTask(weekdays, time, action)
 				, expected = {
 					days: weekdays
-					, startTime: startTime.toString()
-					, shutdownTime: shutdownTime.toString()
+					, time: time.toString()
+					, action: action
 				};
 
 			expect(testTask.toJSON()).to.be.eql(expected);

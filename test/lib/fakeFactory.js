@@ -3,14 +3,14 @@ var days = require('../../lib/days')
 	, Task = require('../../lib/task')
 	, Time = require('time-js');
 
-function createTask(day, startTime, shutdownTime) {
+function createTask(day, time, action) {
 	var scheduledDays = day || days.weekdays
-		, start = startTime || new Time()
-		, shutdown = shutdownTime || new Time()
+		, taskTime = time || new Time()
+		, taskAction = action || Task.SHUTDOWN
 		, task = new Task({
 			days: scheduledDays
-			, startTime: start
-			, shutdownTime: shutdown
+			, time: taskTime
+			, action: taskAction
 		});
 
 	return task;
