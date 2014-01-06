@@ -1,6 +1,9 @@
 /* global describe, it, expect, before, after */
 describe('Schedule', function() {
 	var Schedule = require('../../lib/schedule')
+		, Task = require('../../lib/task')
+		, days = require('../../lib/days')
+		, Time = require('time-js')
 		, path = require('path')
 		, fs = require('fs')
 		, scheduleFileDir = 'tmp'
@@ -39,6 +42,40 @@ describe('Schedule', function() {
 			expect(testSchedule.file).to.be.eql(scheduleFilePath);
 		});
 	});
+
+
+
+	describe('nextTask', function() {
+		var shutdownMondayNoon = new Task({
+				days: days.monday
+				, time: new Time('12 pm')
+				, action: Task.prototype.SHUTDOWN
+			})
+			, startMonday3PM = new Task({
+				days: days.monday
+					, time: new Time('3 pm')
+					, action: Task.prototype.START
+				})
+			, schedule = new Schedule({
+				tasks: [ startMonday3PM, shutdownMondayNoon ]
+			});
+
+		it('should return the shutdown task when called at 11 am on monday', function() {
+			var monday11AM = new Date(2014, 0, 6, 11)
+				, nextTask = schedule.nextTask(monday11AM);
+
+			expect(nextTask).to.be.eql(shutdownMondayNoon);
+		});
+
+		it('should return the start task when called at 1 pm on monday', function() {
+			var monday1PM = new Date(2014, 0, 6, 13)
+				, nextTask = schedule.nextTask(monday1PM);
+
+			expect(nextTask).to.be.eql(startMonday3PM);
+		});
+
+	});
+
 
 	describe('toJSON', function() {
 		it('should return a simplified vesion of the schedule, ready to be stringified', function() {

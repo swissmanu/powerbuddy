@@ -30,7 +30,7 @@
   "dependencies": {
     "crontab": "~0.3.4",
     "commander": "~2.0.0",
-    "time-js": "0.0.4"
+    "time-js": "git://github.com/swissmanu/time.git#nextDateWithOffset-wip"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

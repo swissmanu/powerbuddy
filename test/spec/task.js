@@ -11,12 +11,25 @@ describe('Task', function() {
 		expect(testTask.days).to.be.eql(weekdays);
 	});
 
-	it('should take a time and type with its constructor options argument', function() {
+	it('should convert a single day index to an array when passed to the constructor', function() {
+		var monday = days.monday
+			, testTask = new Task({ days: monday });
+
+		expect(testTask.days).to.be.a('array');
+		expect(testTask.days[0]).to.be.equal(monday);
+	});
+
+	it('should take a time with its constructor options argument', function() {
 		var time = new Time()
-			, action = Task.SHUTDOWN
-			, testTask = new Task({ time: time, action: action });
+			, testTask = new Task({ time: time });
 
 		expect(testTask.time.toString()).to.be.equal(time.toString());
+	});
+
+	it('should take an action with its constructor options argument', function() {
+		var action = Task.prototype.SHUTDOWN
+			, testTask = new Task({ action: action });
+
 		expect(testTask.action).to.be.equal(action);
 	});
 
