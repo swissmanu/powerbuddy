@@ -4,7 +4,9 @@ describe('Schedule', function() {
 		, path = require('path')
 		, fs = require('fs')
 		, scheduleFileDir = 'tmp'
-		, scheduleFilePath = path.join(scheduleFileDir, 'fancypowerbuddy.json');
+		, scheduleFilePath = path.join(scheduleFileDir, 'fancypowerbuddy.json')
+		, fakeFactory = require('../lib/fakeFactory.js');
+
 
 	before(function() {
 		if(!fs.existsSync(scheduleFileDir)) {
@@ -17,6 +19,12 @@ describe('Schedule', function() {
 		fs.rmdirSync(scheduleFileDir);
 	});
 
+	describe('tasks property', function() {
+		it('should be an array', function() {
+			var testSchedule = new Schedule();
+			expect(testSchedule.tasks).to.be.a('array');
+		});
+	});
 
 	describe('file property', function() {
 		it('should use ~/.powerbuddy by default', function() {
@@ -32,6 +40,19 @@ describe('Schedule', function() {
 		});
 	});
 
+	describe('toJSON', function() {
+		it('should return a simplified vesion of the schedule, ready to be stringified', function() {
+			var testSchedule = fakeFactory.createSchedule()
+				, expected = { tasks: [] };
+
+			testSchedule.tasks.forEach(function(task) {
+				expected.tasks.push(task.toJSON());
+			});
+
+			expect(testSchedule.toJSON()).to.be.eql(expected);
+		});
+	});
+
 	describe('load', function() {
 		it('should load specified file', function() {
 			var testSchedule = new Schedule({file: scheduleFilePath});
@@ -39,11 +60,30 @@ describe('Schedule', function() {
 	});
 
 	describe('save', function() {
-		it('should create specified file', function() {
+		it('should create specified file', function(done) {
 			var testSchedule = new Schedule({file: scheduleFilePath});
-			testSchedule.save();
 
-			expect(fs.existsSync(scheduleFilePath)).to.be(true);
+			testSchedule.save(function(err) {
+				expect(err).to.be.undefined;
+				expect(fs.existsSync(scheduleFilePath)).to.be(true);
+				done();
+			});
+		});
+
+		it('should contain the serialized schedule', function(done) {
+			var testSchedule = fakeFactory.createSchedule();
+			testSchedule.file = scheduleFilePath;
+
+			testSchedule.save(function(err) {
+				expect(err).to.be.undefined;
+
+				var fileContent = fs.readFileSync(scheduleFilePath, { encoding: 'utf-8' })
+					, json = JSON.stringify(testSchedule.toJSON());
+
+				expect(fileContent).to.be.equal(json);
+
+				done();
+			});
 		});
 	});
 
