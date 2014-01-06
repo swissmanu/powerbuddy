@@ -53,12 +53,6 @@ describe('Schedule', function() {
 		});
 	});
 
-	describe('load', function() {
-		it('should load specified file', function() {
-			var testSchedule = new Schedule({file: scheduleFilePath});
-		});
-	});
-
 	describe('save', function() {
 		it('should create specified file', function(done) {
 			var testSchedule = new Schedule({file: scheduleFilePath});
@@ -81,9 +75,30 @@ describe('Schedule', function() {
 					, json = JSON.stringify(testSchedule.toJSON());
 
 				expect(fileContent).to.be.equal(json);
-
 				done();
 			});
+		});
+	});
+
+	describe('load', function() {
+		it('should load specified file', function(done) {
+			var savedSchedule = fakeFactory.createSchedule();
+			savedSchedule.file = scheduleFilePath;
+
+			savedSchedule.save(function(err) {
+				expect(err).to.be.undefined;
+
+				var loadedSchedule = new Schedule({ file: scheduleFilePath });
+
+				loadedSchedule.load(function(err, schedule) {
+					expect(err).to.be.undefined;
+
+					// Bad test, but working for the moment
+					expect(schedule.tasks.length).to.be.equal(savedSchedule.tasks.length);
+					done();
+				});
+			});
+
 		});
 	});
 
