@@ -83,50 +83,80 @@ describe('Schedule', function() {
 		});
 		*/
 
-		describe('getScheduleSheet', function() {
-			it('should use a default day range of 6 (finishing into a sheet of 13 days) if no range is defined', function() {
-				var sheet = schedule.getScheduleSheet()
-					, totalDays = 13;
+	});
 
-				expect(Object.keys(sheet).length).to.be.equal(totalDays);
+
+	describe('getScheduleSheet', function() {
+		var shutdownMondayNoon = new Task({
+				days: days.monday
+				, time: new Time('12 pm')
+				, action: Task.prototype.SHUTDOWN
+			})
+			, startMonday3PM = new Task({
+				days: days.monday
+					, time: new Time('3 pm')
+					, action: Task.prototype.START
+				})
+			, schedule = new Schedule({
+				tasks: [ startMonday3PM, shutdownMondayNoon ]
 			});
 
-			it('should create a schedule sheet ranging from/to specified number of days in past/future', function() {
-				var dayRange = 9
-					, totalDays = (dayRange * 2) + 1
-					, sheet = schedule.getScheduleSheet(dayRange);
+		it('should use a default day range of 6 (finishing into a sheet of 13 days) if no range is defined', function() {
+			var sheet = schedule.getScheduleSheet()
+				, totalDays = 13;
 
-				expect(Object.keys(sheet).length).to.be.equal(totalDays);
-			});
-
-			it('should contain expected days and tasks', function() {
-				var dayRange = 6
-					, currentDate = new Date(2014, 0, 6)
-					, firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - dayRange)
-					, sheet = schedule.getScheduleSheet(dayRange, currentDate)
-					, days = [];
-
-
-				for(var i = 0, l = dayRange*2; i <= l; i++) {
-					days.push(new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + i).toString());
-				}
-
-				expect(Object.keys(sheet)).to.eql(days);
-				expect(sheet['Mon Jan 06 2014 00:00:00 GMT+0100 (CET)']).to.contain(shutdownMondayNoon);
-				expect(sheet['Mon Jan 06 2014 00:00:00 GMT+0100 (CET)']).to.contain(startMonday3PM);
-			});
+			expect(Object.keys(sheet).length).to.be.equal(totalDays);
 		});
 
-		describe('getTasksGroupedByDay', function() {
-			it('should return an object, containing a member for each with the respective day tasks', function() {
-				var tasksGroupedByDay = schedule.getTasksGroupedByDay();
+		it('should create a schedule sheet ranging from/to specified number of days in past/future', function() {
+			var dayRange = 9
+				, totalDays = (dayRange * 2) + 1
+				, sheet = schedule.getScheduleSheet(dayRange);
 
-				expect(Object.keys(tasksGroupedByDay).length).to.be.equal(1);
-				expect(tasksGroupedByDay[days.monday]).to.contain(shutdownMondayNoon);
-				expect(tasksGroupedByDay[days.monday]).to.contain(startMonday3PM);
-			});
+			expect(Object.keys(sheet).length).to.be.equal(totalDays);
 		});
 
+		it('should contain expected days and tasks', function() {
+			var dayRange = 6
+				, currentDate = new Date(2014, 0, 6)
+				, firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - dayRange)
+				, sheet = schedule.getScheduleSheet(dayRange, currentDate)
+				, days = [];
+
+
+			for(var i = 0, l = dayRange*2; i <= l; i++) {
+				days.push(new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + i).toString());
+			}
+
+			expect(Object.keys(sheet)).to.eql(days);
+			expect(sheet['Mon Jan 06 2014 00:00:00 GMT+0100 (CET)'][0].task).to.be.eql(shutdownMondayNoon);
+			expect(sheet['Mon Jan 06 2014 00:00:00 GMT+0100 (CET)'][1].task).to.be.eql(startMonday3PM);
+		});
+	});
+
+
+	describe('getTasksGroupedByDay', function() {
+		var shutdownMondayNoon = new Task({
+				days: days.monday
+				, time: new Time('12 pm')
+				, action: Task.prototype.SHUTDOWN
+			})
+			, startMonday3PM = new Task({
+				days: days.monday
+					, time: new Time('3 pm')
+					, action: Task.prototype.START
+				})
+			, schedule = new Schedule({
+				tasks: [ startMonday3PM, shutdownMondayNoon ]
+			});
+
+		it('should return an object, containing a member for each with the respective day tasks', function() {
+			var tasksGroupedByDay = schedule.getTasksGroupedByDay();
+
+			expect(Object.keys(tasksGroupedByDay).length).to.be.equal(1);
+			expect(tasksGroupedByDay[days.monday]).to.contain(shutdownMondayNoon);
+			expect(tasksGroupedByDay[days.monday]).to.contain(startMonday3PM);
+		});
 	});
 
 
