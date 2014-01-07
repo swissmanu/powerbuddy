@@ -129,8 +129,8 @@ describe('Schedule', function() {
 			}
 
 			expect(Object.keys(sheet)).to.eql(days);
-			expect(sheet['Mon Jan 06 2014 00:00:00 GMT+0100 (CET)'][0].task).to.be.eql(shutdownMondayNoon);
-			expect(sheet['Mon Jan 06 2014 00:00:00 GMT+0100 (CET)'][1].task).to.be.eql(startMonday3PM);
+			expect(sheet[currentDate][0].task).to.be.eql(shutdownMondayNoon);
+			expect(sheet[currentDate][1].task).to.be.eql(startMonday3PM);
 		});
 	});
 
