@@ -45,7 +45,7 @@ describe('Schedule', function() {
 
 
 
-	describe('nextTask', function() {
+	describe('getNextUpcomingTask', function() {
 		var shutdownMondayNoon = new Task({
 				days: days.monday
 				, time: new Time('12 pm')
@@ -62,26 +62,24 @@ describe('Schedule', function() {
 
 		it('should return the shutdown task when called at 11 am on monday', function() {
 			var monday11AM = new Date(2014, 0, 6, 11)
-				, nextTask = schedule.nextTask(monday11AM);
+				, nextTask = schedule.getNextUpcomingTask(monday11AM);
 
 			expect(nextTask).to.be.eql(shutdownMondayNoon);
 		});
 
 		it('should return the start task when called at 1 pm on monday', function() {
 			var monday1PM = new Date(2014, 0, 6, 13)
-				, nextTask = schedule.nextTask(monday1PM);
+				, nextTask = schedule.getNextUpcomingTask(monday1PM);
 
 			expect(nextTask).to.be.eql(startMonday3PM);
 		});
 
-		/*
 		it('should return the shutdown task when called at 8pm on sunday', function() {
 			var sunday8PM = new Date(2014, 0, 5, 20)
-				, nextTask = schedule.nextTask(sunday8PM);
+				, nextTask = schedule.getNextUpcomingTask(sunday8PM);
 
 			expect(nextTask).to.be.eql(shutdownMondayNoon);
 		});
-		*/
 
 	});
 
@@ -101,9 +99,9 @@ describe('Schedule', function() {
 				tasks: [ startMonday3PM, shutdownMondayNoon ]
 			});
 
-		it('should use a default day range of 6 (finishing into a sheet of 13 days) if no range is defined', function() {
+		it('should use a default day range of 7 (finishing into a sheet of 15 days) if no range is defined', function() {
 			var sheet = schedule.getScheduleSheet()
-				, totalDays = 13;
+				, totalDays = 15;
 
 			expect(Object.keys(sheet).length).to.be.equal(totalDays);
 		});
@@ -116,7 +114,7 @@ describe('Schedule', function() {
 			expect(Object.keys(sheet).length).to.be.equal(totalDays);
 		});
 
-		it('should contain expected days and tasks', function() {
+		it('should contain expected days and tasks in ascending order', function() {
 			var dayRange = 6
 				, currentDate = new Date(2014, 0, 6)
 				, firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - dayRange)
