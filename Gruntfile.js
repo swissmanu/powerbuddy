@@ -1,16 +1,22 @@
 module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-mocha-test');
+	grunt.loadNpmTasks('grunt-mocha-cov');
 
 	grunt.initConfig({
-		mochaTest: {
+		mochacov: {
 			options: {
 				reporter: 'spec'
-				, require: 'test/expect'
+				, require: ['test/expect']
+				, files: 'test/spec/**/*.js'
 			}
-			, all: {
-				src: 'test/spec/**/*.js'
+			, test: { }
+			, coveralls: {
+				options: {
+					coveralls: {
+						serviceName: 'travis-ci'
+					}
+				}
 			}
 		}
 
@@ -20,7 +26,9 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('test', ['mochaTest:all']);
-	grunt.registerTask('test:watch', ['mochaTest:all', 'watch']);
+	grunt.registerTask('test', ['mochacov:test']);
+	grunt.registerTask('test:watch', ['mochacov:test', 'watch']);
+	grunt.registerTask('test:coveralls', ['mochacov:coveralls'])
+
 	grunt.registerTask('default', 'test:watch');
 };

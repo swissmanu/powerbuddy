@@ -5,7 +5,12 @@
   "main": "index.js",
   "bin": "lib/cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test",
+    "blanket": {
+      "pattern": [
+        "lib"
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -34,7 +39,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-mocha-test": "~0.7.0",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "grunt-mocha-cov": "~0.1.1"
   }
 }
