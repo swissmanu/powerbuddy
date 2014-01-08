@@ -37,7 +37,7 @@ describe('Task', function() {
 		it('should return the tasks information in a simplified object, ready to be stringified', function() {
 			var weekdays = days.weekdays
 				, time = new Time()
-				, action = Task.SHUTDOWN
+				, action = Task.prototype.SHUTDOWN
 				, testTask = fakeFactory.createTask(weekdays, time, action)
 				, expected = {
 					days: weekdays
