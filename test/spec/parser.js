@@ -35,6 +35,12 @@ describe('Parser', function() {
 		it('should parse "weekdays" as [1,2,3,4,5]', function() {
 			expect(parser.parseDay('weekdays')).to.eql([1,2,3,4,5]);
 		});
+		it('should parse "weekends" as [0,6]', function() {
+			expect(parser.parseDay('weekends')).to.eql([0,6]);
+		});
+		it('should parse "weekday" as [1,2,3,4,5]', function() {
+			expect(parser.parseDay('weekday')).to.eql([1,2,3,4,5]);
+		});
 		it('should parse "everday" as [0,1,2,3,4,5,6]', function() {
 			expect(parser.parseDay('everyday')).to.eql([0,1,2,3,4,5,6]);
 		});

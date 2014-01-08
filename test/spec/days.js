@@ -51,4 +51,11 @@ describe('Days', function() {
 		]);
 	});
 
+	it('should alias weekend with weekends', function() {
+		expect(days.weekends).to.be.equal(days.weekend);
+	});
+	it('should alias weekdays with weekday', function() {
+		expect(days.weekday).to.be.equal(days.weekdays);
+	});
+
 });
