@@ -81,6 +81,13 @@ describe('Schedule', function() {
 			expect(nextTask).to.be.eql(shutdownMondayNoon);
 		});
 
+		it('should return the shutdoown task when called at 4pm on monday', function() {
+			var monday4PM = new Date(2014, 0, 6, 16)
+				, nextTask = schedule.getNextUpcomingTask(monday4PM);
+
+			expect(nextTask).to.be.eql(shutdownMondayNoon);
+		});
+
 	});
 
 
