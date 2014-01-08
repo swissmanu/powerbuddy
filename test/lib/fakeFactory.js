@@ -7,7 +7,7 @@ var days = require('../../lib/days')
 function createTask(day, time, action) {
 	var scheduledDays = day || days.weekdays
 		, taskTime = time || new Time()
-		, taskAction = action || Task.SHUTDOWN
+		, taskAction = action || Task.prototype.SHUTDOWN
 		, task = new Task({
 			days: scheduledDays
 			, time: taskTime
