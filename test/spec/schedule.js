@@ -88,6 +88,15 @@ describe('Schedule', function() {
 			expect(nextTask).to.be.eql(shutdownMondayNoon);
 		});
 
+		it('should return the shutdown task when asking only for shutdowns', function() {
+			var nextTask = schedule.getNextUpcomingTask(new Date(), Task.prototype.SHUTDOWN);
+			expect(nextTask).to.be.eql(shutdownMondayNoon);
+		});
+
+		it('should return the start task when asking only for starts', function() {
+			var nextTask = schedule.getNextUpcomingTask(new Date(), Task.prototype.START);
+			expect(nextTask).to.be.eql(startMonday3PM);
+		});
 	});
 
 
