@@ -97,6 +97,17 @@ describe('Schedule', function() {
 			var nextTask = schedule.getNextUpcomingTask(new Date(), Task.prototype.START);
 			expect(nextTask).to.be.eql(startMonday3PM);
 		});
+
+		it('should use a default value if the today parameter is not passed', function() {
+			expect(function() {
+				schedule.getNextUpcomingTask();
+			}).to.not.throwError();
+		});
+
+		it('should return undefined if schedule is empty', function() {
+			schedule.tasks = [];
+			expect(schedule.getNextUpcomingTask()).to.be(undefined);
+		});
 	});
 
 
