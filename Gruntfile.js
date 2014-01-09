@@ -2,6 +2,8 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-mocha-cov');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+
 
 	grunt.initConfig({
 		mochacov: {
@@ -19,6 +21,13 @@ module.exports = function(grunt) {
 					}
 				}
 			}
+		}
+
+		, jshint: {
+			options: {
+				jshintrc: '.jshintrc'
+			}
+			, all: [ 'lib/**/*.js' ]
 		}
 
 		, watch: {
