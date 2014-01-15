@@ -32,6 +32,9 @@ function createScheduler() {
 	var schedule = createSchedule()
 		, systemAdapter = new Scheduler({
 			schedule: schedule
+			, scheduler: function(task, callback) {
+				callback(null);
+			}
 		});
 
 	return systemAdapter;

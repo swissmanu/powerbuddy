@@ -8,17 +8,36 @@ describe('Scheduler', function() {
 
 	it('should throw an error on creation, if no schedule is passed', function() {
 		expect(function() {
-			new Scheduler();
+			new Scheduler(undefined, noOp);
 		}).to.throwError();
+	});
+
+	it('should throw an error on creation, if no scheduler function is passed', function() {
+		expect(function() {
+			new Scheduler({}, undefined);
+		}).to.throwException('No scheduler option passed');
 	});
 
 	it('should take a schedule option on creation', function() {
 		var fakeSchedule = { foo: 'bar' }
 			, scheduler = new Scheduler({
 				schedule: fakeSchedule
+				, scheduler: noOp
 			});
 
 		expect(scheduler.schedule).to.be.equal(fakeSchedule);
+	});
+
+	it('should take a scheduler function on creation', function() {
+		var fakeScheduler = function(task, callback) {
+				callback(null);
+			}
+			, scheduler = new Scheduler({
+				schedule: {}
+				, scheduler: fakeScheduler
+			});
+
+		expect(scheduler.scheduler).to.be.equal(fakeScheduler);
 	});
 
 	describe('scheduleNextUpcomingStart', function() {
