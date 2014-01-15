@@ -55,22 +55,18 @@ describe('Scheduler', function() {
 		it('should resolve the callback with an error if no task was found', function(done) {
 			scheduler.schedule.tasks = [];
 			scheduler.scheduleNextUpcomingStart(function(err) {
-					expect(err.toString()).to.be.equal('Error: No upcoming start task found');
-					done();
-				}
-				, noOp
-			);
+				expect(err.toString()).to.be.equal('Error: No upcoming start task found');
+				done();
+			});
 		});
 
 		it('should return the scheduled task after scheduling successfully', function(done) {
 			scheduler.scheduleNextUpcomingStart(function(err, scheduledTask) {
-					expect(err).to.be(null);
-					expect(scheduledTask.date).not.to.be(undefined);
-					expect(scheduledTask.task).to.be.eql(scheduler.schedule.tasks[0]);
-					done();
-				}
-				, function(task, callback) { callback(null); }
-			);
+				expect(err).to.be(null);
+				expect(scheduledTask.date).not.to.be(undefined);
+				expect(scheduledTask.task).to.be.eql(scheduler.schedule.tasks[0]);
+				done();
+			});
 		});
 	});
 
