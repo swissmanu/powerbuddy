@@ -64,38 +64,46 @@ describe('Schedule', function() {
 			var monday11AM = new Date(2014, 0, 6, 11)
 				, nextTask = schedule.getNextUpcomingTask(monday11AM);
 
-			expect(nextTask).to.be.eql(shutdownMondayNoon);
+			expect(nextTask.date).to.be.eql(new Date(2014, 0, 6, 12));
+			expect(nextTask.task).to.be.eql(shutdownMondayNoon);
 		});
 
-		it('should return the start task when called at 1 pm on monday', function() {
-			var monday1PM = new Date(2014, 0, 6, 13)
+		it('should return the start task when called at 12 pm on monday', function() {
+			var monday1PM = new Date(2014, 0, 6, 12)
 				, nextTask = schedule.getNextUpcomingTask(monday1PM);
 
-			expect(nextTask).to.be.eql(startMonday3PM);
+			expect(nextTask.date).to.be.eql(new Date(2014, 0, 6, 15));
+			expect(nextTask.task).to.be.eql(startMonday3PM);
 		});
 
 		it('should return the shutdown task when called at 8pm on sunday', function() {
 			var sunday8PM = new Date(2014, 0, 5, 20)
 				, nextTask = schedule.getNextUpcomingTask(sunday8PM);
 
-			expect(nextTask).to.be.eql(shutdownMondayNoon);
+			expect(nextTask.date).to.be.eql(new Date(2014, 0, 6, 12));
+			expect(nextTask.task).to.be.eql(shutdownMondayNoon);
 		});
 
-		it('should return the shutdoown task when called at 4pm on monday', function() {
+		it('should return the shutdown task from next week when called at 4pm on monday', function() {
 			var monday4PM = new Date(2014, 0, 6, 16)
 				, nextTask = schedule.getNextUpcomingTask(monday4PM);
 
-			expect(nextTask).to.be.eql(shutdownMondayNoon);
+			expect(nextTask.date).to.be.eql(new Date(2014, 0, 13, 12));
+			expect(nextTask.task).to.be.eql(shutdownMondayNoon);
 		});
 
 		it('should return the shutdown task when asking only for shutdowns', function() {
 			var nextTask = schedule.getNextUpcomingTask(new Date(), Task.prototype.SHUTDOWN);
-			expect(nextTask).to.be.eql(shutdownMondayNoon);
+
+			expect(nextTask.date).not.to.be(undefined);
+			expect(nextTask.task).to.be.eql(shutdownMondayNoon);
 		});
 
 		it('should return the start task when asking only for starts', function() {
 			var nextTask = schedule.getNextUpcomingTask(new Date(), Task.prototype.START);
-			expect(nextTask).to.be.eql(startMonday3PM);
+
+			expect(nextTask.date).not.to.be(undefined);
+			expect(nextTask.task).to.be.eql(startMonday3PM);
 		});
 
 		it('should use a default value if the today parameter is not passed', function() {
