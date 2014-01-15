@@ -1,8 +1,8 @@
 /* global describe, it, expect */
 describe('Task', function() {
-	var Task = require('../../lib/task')
+	var Task = require('../../lib/model/task')
 		, fakeFactory = require('../lib/fakeFactory')
-		, days = require('../../lib/days')
+		, days = require('../../lib/model/days')
 		, Time = require('time-js');
 
 	it('should take an array of day indices with its constructor options argument', function() {

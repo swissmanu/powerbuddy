@@ -1,14 +1,25 @@
-/*var powerbuddy = require('../index.js');
+var spawn = require('child_process').spawn
+	, at = spawn('at', ['6:55AM', '15.01.2014']);
 
-powerbuddy.planShutdown('everyday', '01:00');
-powerbuddy.planStart('weekend', '10:00');
-powerbuddy.planStart('weekday', '5pm');
-powerbuddy.planShutdown(['sunday', 'monday'], '10am');
-powerbuddy.plan('monday', '10am', '10pm');
-*/
+at.stdin.setEncoding('utf-8');
+at.stdin.write('subl', function() {
+	at.stdin.end();
+});
 
-//var parser = require('../lib/parser');
-//console.log(parser.parseTime('11am'));
+at.stderr.setEncoding('utf-8');
+at.stderr.on('data', function(data) {
+	// Example data value: job 11 at Thu Jan 16 06:40:00 2014
+	// Extract the job number.
+	var regex = /job\s(\d+)\sat/i
+		, matches = data.match(regex);
 
-//var time = require('time-js');
-//console.log(time('2pm').period());
+	if(matches) {
+		console.log('Scheduled task with id', matches[1]);
+	} else {
+		console.log('Could not schedule task :( Error:', data);
+	}
+});
+
+at.on('close', function(signal) {
+	console.log('signal: ', signal);
+});

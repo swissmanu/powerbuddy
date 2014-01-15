@@ -1,6 +1,6 @@
 /* global describe, it, expect */
 describe('Days', function() {
-	var days = require('../../lib/days');
+	var days = require('../../lib/model/days');
 
 	it('should define sunday with value 0', function() {
 		expect(days.sunday).to.be(0);

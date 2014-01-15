@@ -1,8 +1,8 @@
 /* global describe, it, expect, before, after */
 describe('Schedule', function() {
-	var Schedule = require('../../lib/schedule')
-		, Task = require('../../lib/task')
-		, days = require('../../lib/days')
+	var Schedule = require('../../lib/model/schedule')
+		, Task = require('../../lib/model/task')
+		, days = require('../../lib/model/days')
 		, Time = require('time-js')
 		, path = require('path')
 		, fs = require('fs')

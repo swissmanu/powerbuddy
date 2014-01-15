@@ -1,8 +1,8 @@
-var days = require('../../lib/days')
-	, Schedule = require('../../lib/schedule')
-	, Task = require('../../lib/task')
+var days = require('../../lib/model/days')
+	, Schedule = require('../../lib/model/schedule')
+	, Task = require('../../lib/model/task')
 	, Time = require('time-js')
-	, SystemAdapter = require('../../lib/systemAdapter');
+	, Scheduler = require('../../lib/scheduler');
 
 function createTask(day, time, action) {
 	var scheduledDays = day || days.weekdays
@@ -28,9 +28,9 @@ function createSchedule(tasks) {
 	return schedule;
 }
 
-function createSystemAdapter() {
+function createScheduler() {
 	var schedule = createSchedule()
-		, systemAdapter = new SystemAdapter({
+		, systemAdapter = new Scheduler({
 			schedule: schedule
 		});
 
@@ -40,5 +40,5 @@ function createSystemAdapter() {
 module.exports = {
 	createTask: createTask
 	, createSchedule: createSchedule
-	, createSystemAdapter: createSystemAdapter
+	, createScheduler: createScheduler
 };
