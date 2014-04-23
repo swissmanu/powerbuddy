@@ -30,14 +30,16 @@ function createSchedule(tasks) {
 
 function createScheduler() {
 	var schedule = createSchedule()
-		, systemAdapter = new Scheduler({
-			schedule: schedule
-			, scheduler: function(task, callback) {
-				callback(null);
-			}
-		});
+		, fakeAdapter = function(task, callback) {
+			callback(null);
+		}
+		, scheduler = new Scheduler(
+			schedule
+			, fakeAdapter
+			, fakeAdapter
+		);
 
-	return systemAdapter;
+	return scheduler;
 }
 
 module.exports = {
