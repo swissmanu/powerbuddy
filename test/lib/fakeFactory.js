@@ -28,9 +28,9 @@ function createSchedule(tasks) {
 	return schedule;
 }
 
-function createScheduler() {
-	var schedule = createSchedule()
-		, fakeAdapter = function(task, callback) {
+function createScheduler(schedule) {
+	schedule = schedule || createSchedule();
+	var fakeAdapter = function(task, callback) {
 			callback(null);
 		}
 		, scheduler = new Scheduler(

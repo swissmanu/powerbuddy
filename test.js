@@ -1,5 +1,5 @@
-var spawn = require('child_process').spawn
-	, at = spawn('at', ['6:55AM', '15.01.2014']);
+/*var spawn = require('child_process').spawn
+	, at = spawn('at', ['7:14AM', '23.04.2014']);
 
 at.stdin.setEncoding('utf-8');
 at.stdin.write('subl', function() {
@@ -22,4 +22,25 @@ at.stderr.on('data', function(data) {
 
 at.on('close', function(signal) {
 	console.log('signal: ', signal);
+});*/
+
+var days = require('./lib/model/days')
+	, factory = require('./test/lib/fakeFactory')
+	, Time = require('time-js')
+	, Scheduler = require('./lib/scheduler')
+	, Task = require('./lib/model/task')
+	, schedule = factory.createSchedule([
+		factory.createTask(
+			days.monday, new Time('07:30am'), Task.prototype.START)
+	])
+	, fakeAdapter = function fakeAdapter(task, callback) {
+		console.log('>>>>>>>>>> fakeAdapter', task);
+	}
+	, scheduler = new Scheduler(schedule, fakeAdapter, fakeAdapter);
+
+scheduler.scheduleNextUpcomingShutdown(function(err) {
+	console.log(err);
+});
+scheduler.scheduleNextUpcomingStart(function(err) {
+	console.log(err);
 });
