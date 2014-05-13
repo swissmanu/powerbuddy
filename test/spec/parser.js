@@ -2,6 +2,16 @@
 describe('Parser', function() {
 	var parser = require('../../lib/parser');
 
+	describe('parseTime', function() {
+		it('should return an instance of timejs', function() {
+			var time = parser.parseTime('12:00');
+
+			expect(time.hours).to.be.a(Function);
+			expect(time.minutes).to.be.a(Function);
+			expect(time.period).to.be.a(Function);
+		});
+	});
+
 	describe('parseDay', function() {
 		it('should be a function', function() {
 			expect(parser.parseDay).to.be.a('function');
