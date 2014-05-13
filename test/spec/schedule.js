@@ -222,8 +222,8 @@ describe('Schedule', function() {
 		it('should create specified file', function(done) {
 			var testSchedule = new Schedule({file: scheduleFilePath});
 
-			testSchedule.save(function(err) {
-				expect(err).to.be.undefined;
+			testSchedule.save()
+			.then(function() {
 				expect(fs.existsSync(scheduleFilePath)).to.be(true);
 				done();
 			});
@@ -233,9 +233,8 @@ describe('Schedule', function() {
 			var testSchedule = fakeFactory.createSchedule();
 			testSchedule.file = scheduleFilePath;
 
-			testSchedule.save(function(err) {
-				expect(err).to.be.undefined;
-
+			testSchedule.save()
+			.then(function() {
 				var fileContent = fs.readFileSync(scheduleFilePath, { encoding: 'utf-8' })
 					, json = JSON.stringify(testSchedule.toJSON());
 
@@ -247,21 +246,18 @@ describe('Schedule', function() {
 
 	describe('load', function() {
 		it('should load specified file', function(done) {
-			var savedSchedule = fakeFactory.createSchedule();
+			var savedSchedule = fakeFactory.createSchedule()
+				, loadedSchedule;
 			savedSchedule.file = scheduleFilePath;
 
-			savedSchedule.save(function(err) {
-				expect(err).to.be.undefined;
-
-				var loadedSchedule = new Schedule({ file: scheduleFilePath });
-
-				loadedSchedule.load(function(err, schedule) {
-					expect(err).to.be.undefined;
-
-					// Bad test, but working for the moment
-					expect(schedule.tasks.length).to.be.equal(savedSchedule.tasks.length);
-					done();
-				});
+			savedSchedule.save()
+			.then(function() {
+				loadedSchedule = new Schedule({ file: scheduleFilePath });
+				return loadedSchedule.load();
+			})
+			.then(function(schedule) {
+				expect(loadedSchedule.tasks.length).to.be.equal(savedSchedule.tasks.length);
+				done();
 			});
 
 		});
