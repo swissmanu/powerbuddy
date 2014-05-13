@@ -192,11 +192,22 @@ describe('Schedule', function() {
 		});
 	});
 
+	describe('set & get', function() {
+		var schedule = new Schedule();
+
+		it('should work as key/value store', function() {
+			var key = 'foo'
+				, value = 'bar';
+
+			schedule.set(key, value);
+			expect(schedule.get(key)).to.equal(value);
+		});
+	});
 
 	describe('toJSON', function() {
 		it('should return a simplified vesion of the schedule, ready to be stringified', function() {
 			var testSchedule = fakeFactory.createSchedule()
-				, expected = { tasks: [] };
+				, expected = { tasks: [], settings: {} };
 
 			testSchedule.tasks.forEach(function(task) {
 				expected.tasks.push(task.toJSON());

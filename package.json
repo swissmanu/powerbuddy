@@ -33,8 +33,10 @@
     "url": "https://github.com/swissmanu/powerbuddy/issues"
   },
   "dependencies": {
-    "crontab": "~0.3.4",
     "commander": "~2.0.0",
+    "crontab": "~0.3.4",
+    "moment": "^2.6.0",
+    "q": "^1.0.1",
     "time-js": "git://github.com/swissmanu/time.git#nextDateWithOffset-wip"
   },
   "devDependencies": {

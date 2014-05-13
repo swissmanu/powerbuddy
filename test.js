@@ -24,7 +24,7 @@ at.on('close', function(signal) {
 	console.log('signal: ', signal);
 });*/
 
-var days = require('./lib/model/days')
+/*var days = require('./lib/model/days')
 	, factory = require('./test/lib/fakeFactory')
 	, Time = require('time-js')
 	, Scheduler = require('./lib/scheduler')
@@ -43,4 +43,23 @@ scheduler.scheduleNextUpcomingShutdown(function(err) {
 });
 scheduler.scheduleNextUpcomingStart(function(err) {
 	console.log(err);
+});
+*/
+
+var crontab = require('crontab');
+
+crontab.load(function(err, tab) {
+	var jobs = tab.getJobs();
+
+	if(jobs.length > 0) {
+		tab.remove(tab.findComment('PowerBuddy'));
+	} else {
+		var job = tab.create('echo `date` >> /home/vagrant/buffer');
+		job.everyReboot();
+		job.comment('PowerBuddy');
+	}
+
+	tab.save(function(err) {
+		console.log(err, 'saved!');
+	});
 });
