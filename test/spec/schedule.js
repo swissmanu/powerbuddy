@@ -256,7 +256,7 @@ describe('Schedule', function() {
 				return loadedSchedule.load();
 			})
 			.then(function(schedule) {
-				expect(loadedSchedule.tasks.length).to.be.equal(savedSchedule.tasks.length);
+				expect(schedule.tasks.length).to.be.equal(savedSchedule.tasks.length);
 				done();
 			});
 
