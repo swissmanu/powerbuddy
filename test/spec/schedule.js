@@ -32,7 +32,8 @@ describe('Schedule', function() {
 	describe('file property', function() {
 		it('should use ~/.powerbuddy by default', function() {
 			var testSchedule = new Schedule()
-				, homeDir = path.join('~', '.powerbuddy');
+				, usersHome = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
+				, homeDir = path.join(usersHome, '.powerbuddy');
 
 			expect(testSchedule.file).to.be.eql(homeDir);
 		});
