@@ -44,6 +44,7 @@
     "grunt": "~0.4.1",
     "expect.js": "~0.2.0",
     "grunt-mocha-cov": "~0.1.1",
-    "grunt-contrib-jshint": "~0.8.0"
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-plato": "~1.0.0"
   }
 }

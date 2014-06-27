@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-mocha-cov');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-plato');
 
 
 	grunt.initConfig({
@@ -34,11 +35,23 @@ module.exports = function(grunt) {
 			files: ['lib/**/*.js', 'bin/*', 'test/**/*.js']
 			, tasks: ['test']
 		}
+
+		, plato: {
+			source: {
+				options: {
+					jshint : grunt.file.readJSON('.jshintrc')
+				}
+				, files: {
+					'plato/': ['lib/**/*.js']
+				}
+			}
+		}
 	});
 
 	grunt.registerTask('test', ['mochacov:test']);
 	grunt.registerTask('test:watch', ['mochacov:test', 'watch']);
-	grunt.registerTask('test:coveralls', ['mochacov:coveralls'])
+	grunt.registerTask('test:coveralls', ['mochacov:coveralls']);
+	grunt.registerTask('metrics', 'plato');
 
 	grunt.registerTask('default', 'test:watch');
 };
