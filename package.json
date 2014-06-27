@@ -1,9 +1,11 @@
 {
   "name": "powerbuddy",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Automatic shutdown and boot for linux",
   "main": "index.js",
-  "bin": "bin/powerbuddy.js",
+  "bin": {
+    "powerbuddy": "bin/powerbuddy"
+  },
   "scripts": {
     "test": "grunt test",
     "blanket": {
