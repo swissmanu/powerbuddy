@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Automatic shutdown and boot for linux",
   "main": "index.js",
-  "bin": "lib/cli.js",
+  "bin": "bin/powerbuddy.js",
   "scripts": {
     "test": "grunt test",
     "blanket": {
