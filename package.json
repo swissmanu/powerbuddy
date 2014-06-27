@@ -33,7 +33,7 @@
     "url": "https://github.com/swissmanu/powerbuddy/issues"
   },
   "dependencies": {
-    "commander": "~2.0.0",
+    "commander": "~2.2.0",
     "crontab": "~0.3.4",
     "debug": "^0.8.1",
     "moment": "^2.6.0",
