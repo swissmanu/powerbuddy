@@ -5,9 +5,9 @@ describe('Parser', () => {
     it('should return an instance of timejs', () => {
       const time = parser.parseTime('12:00');
 
-      expect(time.hours).toBeInstanceOf(Function);
-      expect(time.minutes).toBeInstanceOf(Function);
-      expect(time.period).toBeInstanceOf(Function);
+      expect(time.hours).toBe(Function);
+      expect(time.minutes).toBe(Function);
+      expect(time.period).toBe(Function);
     });
   });
 
