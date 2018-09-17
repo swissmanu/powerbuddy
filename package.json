@@ -7,7 +7,8 @@
     "powerbuddy": "bin/powerbuddy"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "jest",
+    "prettier": "prettier --write Gruntfile.js index.js 'test/**/*.js' 'lib/**/*.js'",
     "blanket": {
       "pattern": [
         "lib"
@@ -37,16 +38,26 @@
   "dependencies": {
     "commander": "~2.2.0",
     "crontab": "~0.3.4",
-    "debug": "^0.8.1",
+    "debug": "^4.0.1",
     "moment": "^2.6.0",
     "q": "^1.0.1",
-    "time-js": "git://github.com/swissmanu/time.git#nextDateWithOffset-wip"
+    "time-js": "^0.0.5"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "expect.js": "~0.2.0",
-    "grunt-mocha-cov": "~0.1.1",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-plato": "~1.0.0"
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.2",
+    "rollup": "^0.66.0"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/spec/*.js"
+    ]
   }
 }

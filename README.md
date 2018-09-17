@@ -4,11 +4,14 @@
 `powerbuddy` is a command line utility, written in JavaScript using Node.js and allows you to create exact schedules when to start and shutdown a unix based computer.
 
 ## Requirements
+
 ### Hardware
+
 * Bios with support for scheduled system startups using `RTC`, aka *[real-time clock](https://www.linux.com/learn/docs/672849-wake-up-linux-with-an-rtc-alarm-clock)*
 
 ### Software
-* Node.JS >= 0.10
+
+* nodejs
 * Unix-based operating system, providing:
   * working `shutdown` system utilities for shutting down the system
   * working `at` system utilities for scheduling jobs
